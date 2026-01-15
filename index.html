@@ -24,10 +24,23 @@
             --accent-primary: #3b82f6;
         }
 
+        body.light-mode {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-primary: #3b82f6;
+        }
+
         body {
             background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f172a 100%);
             position: relative;
             overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #dbeafe 100%);
         }
 
         .animated-bg {
@@ -46,6 +59,11 @@
             filter: blur(60px);
             opacity: 0.15;
             animation: float 20s infinite ease-in-out;
+            transition: all 0.5s ease;
+        }
+
+        body.light-mode .floating-shape {
+            opacity: 0.25;
         }
 
         .shape-1 {
@@ -89,6 +107,11 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        body.light-mode .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
         .glass-card:hover {
             transform: translateY(-8px);
             border-color: rgba(59, 130, 246, 0.5);
@@ -107,6 +130,11 @@
             transition: all 0.3s ease;
         }
 
+        body.light-mode .search-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(59, 130, 246, 0.2);
+        }
+
         .search-input:focus {
             outline: none;
             border-color: var(--accent-primary);
@@ -123,6 +151,12 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
+        body.light-mode .suggestions-dropdown {
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
         .suggestion-item {
             transition: all 0.2s ease;
         }
@@ -135,6 +169,12 @@
             background: rgba(59, 130, 246, 0.2);
             border: 1px solid rgba(59, 130, 246, 0.3);
             transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        body.light-mode .category-badge {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
 
         .category-badge:hover {
@@ -145,6 +185,7 @@
         .category-badge.active {
             background: var(--accent-primary);
             border-color: var(--accent-primary);
+            color: white;
         }
 
         .discount-badge {
@@ -155,6 +196,7 @@
             border-radius: 12px;
             display: inline-block;
             animation: pulse-glow 2s infinite;
+            color: white;
         }
 
         @keyframes pulse-glow {
@@ -189,6 +231,10 @@
             transition: all 0.3s ease;
         }
 
+        body.light-mode .logo-container {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
         .glass-card:hover .logo-container {
             transform: scale(1.1) rotate(5deg);
             background: rgba(59, 130, 246, 0.2);
@@ -204,9 +250,56 @@
             animation: titleGlow 3s ease-in-out infinite;
         }
 
+        body.light-mode .hero-title {
+            background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         @keyframes titleGlow {
             0%, 100% { filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3)); }
             50% { filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.6)); }
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 10000;
+            width: 60px;
+            height: 60px;
+            background: rgba(26, 31, 58, 0.8);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        body.light-mode .theme-toggle {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .theme-icon {
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
         }
 
         /* Modal Styles */
@@ -227,6 +320,10 @@
             animation: fadeIn 0.3s ease-out forwards;
         }
 
+        body.light-mode .modal-overlay {
+            background: rgba(15, 23, 42, 0.6);
+        }
+
         @keyframes fadeIn {
             to { opacity: 1; }
         }
@@ -242,6 +339,11 @@
             overflow-y: auto;
             box-shadow: 0 30px 80px rgba(59, 130, 246, 0.4);
             animation: modalSlideIn 0.4s ease-out;
+        }
+
+        body.light-mode .modal-content {
+            background: rgba(255, 255, 255, 0.98);
+            border: 2px solid rgba(59, 130, 246, 0.3);
         }
 
         @keyframes modalSlideIn {
@@ -269,6 +371,10 @@
             animation: logoFloat 3s ease-in-out infinite;
         }
 
+        body.light-mode .modal-logo {
+            background: rgba(59, 130, 246, 0.15);
+        }
+
         @keyframes logoFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
@@ -283,6 +389,7 @@
             display: inline-block;
             box-shadow: 0 10px 40px rgba(59, 130, 246, 0.5);
             animation: pulse-glow 2s infinite;
+            color: white;
         }
 
         .detail-row {
@@ -291,6 +398,11 @@
             padding: 16px 20px;
             border-radius: 12px;
             transition: all 0.3s ease;
+        }
+
+        body.light-mode .detail-row {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.15);
         }
 
         .detail-row:hover {
@@ -320,6 +432,83 @@
             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
         }
 
+        /* QR Code Styles */
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+            display: inline-block;
+        }
+
+        .barcode-wrapper {
+            width: 300px;
+            height: 120px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .discount-code-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px dashed rgba(59, 130, 246, 0.4);
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: all;
+        }
+
+        .discount-code-box:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.6);
+            transform: scale(1.05);
+        }
+
+        .discount-code-box:active {
+            transform: scale(0.98);
+        }
+
+        .copy-notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(16, 185, 129, 0.95);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: bold;
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+            z-index: 99999;
+            opacity: 0;
+            animation: copyNotif 2s ease-out forwards;
+        }
+
+        @keyframes copyNotif {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            10% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            90% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+        }
+
+        .text-styled {
+            color: var(--text-primary);
+        }
+
+        .text-secondary-styled {
+            color: var(--text-secondary);
+        }
+
+        .border-styled {
+            border-color: rgba(148, 163, 184, 0.3);
+        }
+
+        body.light-mode .border-styled {
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2rem;
@@ -337,6 +526,19 @@
                 height: 100px;
                 font-size: 3rem;
             }
+            .theme-toggle {
+                width: 50px;
+                height: 50px;
+                top: 20px;
+                left: 20px;
+            }
+            .theme-icon {
+                font-size: 1.5rem;
+            }
+            .barcode-wrapper {
+                width: 250px;
+                height: 100px;
+            }
         }
 
         .scrollbar-custom::-webkit-scrollbar {
@@ -346,6 +548,10 @@
         .scrollbar-custom::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
+        }
+
+        body.light-mode .scrollbar-custom::-webkit-scrollbar-track {
+            background: rgba(59, 130, 246, 0.1);
         }
 
         .scrollbar-custom::-webkit-scrollbar-thumb {
@@ -361,7 +567,7 @@
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full">
+ <body class="h-full"><!-- Theme Toggle Button --> <button class="theme-toggle" onclick="toggleTheme()" aria-label="تبديل الوضع"> <span class="theme-icon" id="theme-icon">🌙</span> </button>
   <div class="animated-bg">
    <div class="floating-shape shape-1"></div>
    <div class="floating-shape shape-2"></div>
@@ -370,12 +576,12 @@
   <div class="relative z-10 w-full h-full overflow-auto"><!-- Hero Section -->
    <section class="text-center py-20 px-6">
     <h1 id="hero-title" class="hero-title mb-4">خصومات حصرية لموظفينا</h1>
-    <p id="hero-subtitle" class="text-xl text-gray-300 max-w-3xl mx-auto">استمتع بعروض وخصومات حصرية من أفضل الشركات والعلامات التجارية</p>
+    <p id="hero-subtitle" class="text-xl text-secondary-styled max-w-3xl mx-auto">استمتع بعروض وخصومات حصرية من أفضل الشركات والعلامات التجارية</p>
    </section><!-- Search Section -->
    <section class="max-w-6xl mx-auto px-6 mb-12">
     <div class="search-container">
      <div class="relative"><input type="text" id="search-input" class="search-input w-full px-6 py-4 rounded-2xl text-lg" placeholder="ابحث عن شركة أو تصنيف...">
-      <svg class="absolute left-6 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      <svg class="absolute left-6 top-1/2 transform -translate-y-1/2 w-6 h-6 text-secondary-styled" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
       </svg>
      </div>
      <div id="suggestions" class="suggestions-dropdown absolute w-full mt-2 hidden scrollbar-custom" style="z-index: 1000;"></div>
@@ -390,15 +596,16 @@
      <div class="text-6xl mb-4">
       🔍
      </div>
-     <h3 class="text-2xl font-bold text-white mb-2">لا توجد نتائج</h3>
-     <p class="text-gray-400">جرب البحث بكلمات أخرى أو اختر تصنيف مختلف</p>
+     <h3 class="text-2xl font-bold text-styled mb-2">لا توجد نتائج</h3>
+     <p class="text-secondary-styled">جرب البحث بكلمات أ��رى أو اختر تصنيف مختلف</p>
     </div>
    </section><!-- Footer -->
-   <footer class="text-center py-8 px-6 border-t border-gray-800">
-    <p id="footer-text" class="text-gray-400">© 2026 بوابة مزايا الموظفين. جميع الحقوق محفوظة.</p>
+   <footer class="text-center py-8 px-6 border-t border-styled">
+    <p id="footer-text" class="text-secondary-styled">© 2026 بوابة مزايا الموظفين. جميع ���لحقوق محفوظة.</p>
    </footer>
   </div><!-- Modal Container -->
-  <div id="modal-container"></div>
+  <div id="modal-container"></div><!-- Copy Notification -->
+  <div id="copy-notification"></div>
   <script>
         const defaultConfig = {
             hero_title: "خصومات حصرية لموظفينا",
@@ -408,44 +615,235 @@
         };
 
         const companies = [
-            { name: "أمازون", logo: "📦", discount: "15%", category: "تكنولوجيا", url: "https://amazon.com", validUntil: "31 ديسمبر 2026", description: "خصم حصري على جميع المنتجات الإلكترونية والكتب" },
-            { name: "أبل", logo: "🍎", discount: "10%", category: "تكنولوجيا", url: "https://apple.com", validUntil: "30 يونيو 2026", description: "خصم على أجهزة iPhone, iPad, MacBook وإكسسوارات" },
-            { name: "مايكروسوفت", logo: "💻", discount: "20%", category: "تكنولوجيا", url: "https://microsoft.com", validUntil: "31 مارس 2026", description: "خصم على اشتراكات Office 365 والخدمات السحابية" },
-            { name: "فايزر", logo: "💊", discount: "25%", category: "أدوية", url: "https://pfizer.com", validUntil: "31 يناير 2026", description: "خصم على المكملات الغذائية والأدوية المعتمدة" },
-            { name: "نوفارتس", logo: "🏥", discount: "18%", category: "أدوية", url: "https://novartis.com", validUntil: "28 فبراير 2026", description: "خصم على منتجات العناية الصحية والأدوية" },
-            { name: "نستله", logo: "🍫", discount: "12%", category: "أغذية", url: "https://nestle.com", validUntil: "31 ديسمبر 2026", description: "خصم على جميع منتجات نستله الغذائية والمشروبات" },
-            { name: "كوكاكولا", logo: "🥤", discount: "15%", category: "أغذية", url: "https://coca-cola.com", validUntil: "30 أبريل 2026", description: "خصم على المشروبات الغازية والعصائر الطبيعية" },
-            { name: "زارا", logo: "👔", discount: "30%", category: "ملابس", url: "https://zara.com", validUntil: "31 يناير 2026", description: "خصم على الملابس الرجالية والنسائية - مجموعة الشتاء" },
-            { name: "نايكي", logo: "👟", discount: "25%", category: "ملابس", url: "https://nike.com", validUntil: "31 مارس 2026", description: "خصم على الأحذية والملابس الرياضية والإكسسوارات" },
-            { name: "ماكدونالدز", logo: "🍔", discount: "20%", category: "مطاعم", url: "https://mcdonalds.com", validUntil: "31 ديسمبر 2026", description: "خصم على جميع الوجبات - صالح في جميع الفروع" },
-            { name: "ستاربكس", logo: "☕", discount: "15%", category: "مطاعم", url: "https://starbucks.com", validUntil: "30 يونيو 2026", description: "خصم على المشروبات الساخنة والباردة والحلويات" },
-            { name: "أوبر", logo: "🚗", discount: "10%", category: "خدمات", url: "https://uber.com", validUntil: "31 مايو 2026", description: "خصم على رحلات أوبر - 10 رحلات شهرياً" }
+            { name: "أمازون", logo: "📦", discount: "15%", category: "تكنولوجيا", url: "https://amazon.com", validUntil: "31 ديسمبر 2027", description: "خصم حصري على جميع المنتجات الإلكترونية والكتب", discountCode: "AMAZON15" },
+            { name: "أبل", logo: "🍎", discount: "10%", category: "تكنولوجيا", url: "https://apple.com", validUntil: "30 يونيو 2027", description: "خصم على أجهزة iPhone, iPad, MacBook وإكسسوارات", discountCode: "APPLE10" },
+            { name: "مايكروسوفت", logo: "💻", discount: "20%", category: "تكنولوجيا", url: "https://microsoft.com", validUntil: "31 مارس 2027", description: "خصم على اشتراكات Office 365 والخدمات السحابية", discountCode: "MSFT20" },
+            { name: "فايزر", logo: "💊", discount: "25%", category: "أدوية", url: "https://pfizer.com", validUntil: "31 يناير 2027", description: "خصم على المكملات الغذائية والأدوية المعتمدة", discountCode: "PFIZER25" },
+            { name: "نوفارتس", logo: "🏥", discount: "18%", category: "أدوية", url: "https://novartis.com", validUntil: "28 فبراير 2027", description: "خصم على منتجات العناية الصحية والأدوية", discountCode: "NOVARTIS18" },
+            { name: "نستله", logo: "🍫", discount: "12%", category: "أغذية", url: "https://nestle.com", validUntil: "31 ديسمبر 2027", description: "خصم على جميع منتجات نستله الغذائية والمشروبا��", discountCode: "NESTLE12" },
+            { name: "ك��كاكولا", logo: "🥤", discount: "15%", category: "أغذية", url: "https://coca-cola.com", validUntil: "30 أبريل 2027", description: "خصم على المشروبات الغازية والعصائر الطبيعية", discountCode: "COLA15" },
+            { name: "زارا", logo: "👔", discount: "30%", category: "ملابس", url: "https://zara.com", validUntil: "31 يناير 2027", description: "خصم على الملابس الرجالية والنسائية - مجموعة الشتاء", discountCode: "ZARA30" },
+            { name: "نايكي", logo: "👟", discount: "25%", category: "ملابس", url: "https://nike.com", validUntil: "31 مارس 2027", description: "خصم على الأحذية والملابس الرياضية والإكسسوارات", discountCode: "NIKE25" },
+            { name: "ماكدونالدز", logo: "🍔", discount: "20%", category: "مطاعم", url: "https://mcdonalds.com", validUntil: "31 ديسمبر 2027", description: "خصم على جميع الوجبات - صالح في جميع الفروع", discountCode: "MCDO20" },
+            { name: "ستاربكس", logo: "☕", discount: "15%", category: "مطاعم", url: "https://starbucks.com", validUntil: "30 يونيو 2027", description: "خصم على المشروبات الساخنة والباردة والحلويات", discountCode: "SBUX15" },
+            { name: "أوبر", logo: "🚗", discount: "10%", category: "خدمات", url: "https://uber.com", validUntil: "31 مايو 2027", description: "خصم على رحلات أوبر - 10 رحلات شهرياً", discountCode: "UBER10" }
         ];
 
         const categories = ["الكل", "تكنولوجيا", "أدوية", "أغذية", "ملابس", "مطاعم", "خدمات"];
         let activeCategory = "الكل";
         let searchQuery = "";
 
+        // Barcode generation using SVG - Realistic Code 128 style
+        function generateBarcode(text, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const width = 300;
+            const height = 120;
+            
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", width);
+            svg.setAttribute("height", height);
+            svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+            
+            // White background
+            const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            bg.setAttribute("width", width);
+            bg.setAttribute("height", height);
+            bg.setAttribute("fill", "white");
+            svg.appendChild(bg);
+            
+            // Generate realistic barcode pattern
+            const patterns = [
+                [2,1,2,3,1], [3,1,1,2,2], [1,2,2,2,2], [4,1,1,1,2],
+                [1,3,3,1,1], [3,3,1,1,1], [1,1,4,2,1], [2,2,2,2,1],
+                [2,1,1,3,2], [1,2,3,2,1], [3,1,2,1,2], [1,3,2,1,2]
+            ];
+            
+            const barWidth = 2;
+            let x = 15;
+            
+            // Start guard pattern
+            [1,1,1].forEach((w, i) => {
+                const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                rect.setAttribute("x", x);
+                rect.setAttribute("y", 15);
+                rect.setAttribute("width", barWidth * w);
+                rect.setAttribute("height", 70);
+                rect.setAttribute("fill", i % 2 === 0 ? "black" : "white");
+                if (i % 2 === 0) svg.appendChild(rect);
+                x += barWidth * w;
+            });
+            
+            x += 2;
+            
+            // Encode text to barcode
+            for (let i = 0; i < text.length; i++) {
+                const charCode = text.charCodeAt(i);
+                const pattern = patterns[charCode % patterns.length];
+                
+                let isBlack = true;
+                pattern.forEach(w => {
+                    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    rect.setAttribute("x", x);
+                    rect.setAttribute("y", 15);
+                    rect.setAttribute("width", barWidth * w);
+                    rect.setAttribute("height", 70);
+                    rect.setAttribute("fill", isBlack ? "black" : "white");
+                    if (isBlack) svg.appendChild(rect);
+                    x += barWidth * w;
+                    isBlack = !isBlack;
+                });
+            }
+            
+            x += 2;
+            
+            // End guard pattern
+            [1,1,1].forEach((w, i) => {
+                const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                rect.setAttribute("x", x);
+                rect.setAttribute("y", 15);
+                rect.setAttribute("width", barWidth * w);
+                rect.setAttribute("height", 70);
+                rect.setAttribute("fill", i % 2 === 0 ? "black" : "white");
+                if (i % 2 === 0) svg.appendChild(rect);
+                x += barWidth * w;
+            });
+            
+            // Generate barcode number (like products have)
+            let barcodeNumber = '';
+            for (let i = 0; i < text.length; i++) {
+                barcodeNumber += text.charCodeAt(i) % 10;
+            }
+            // Pad or trim to 12 digits
+            barcodeNumber = (barcodeNumber + '000000000000').substring(0, 12);
+            
+            // Add number below barcode with spacing
+            const numberY = 95;
+            const numberSpacing = (width - 30) / 12;
+            for (let i = 0; i < 12; i++) {
+                const numText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                numText.setAttribute("x", 15 + (i * numberSpacing));
+                numText.setAttribute("y", numberY);
+                numText.setAttribute("text-anchor", "middle");
+                numText.setAttribute("font-family", "monospace");
+                numText.setAttribute("font-size", "11");
+                numText.setAttribute("font-weight", "bold");
+                numText.setAttribute("fill", "black");
+                numText.textContent = barcodeNumber[i];
+                svg.appendChild(numText);
+            }
+            
+            // Add discount code below
+            const codeText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            codeText.setAttribute("x", width / 2);
+            codeText.setAttribute("y", 110);
+            codeText.setAttribute("text-anchor", "middle");
+            codeText.setAttribute("font-family", "Arial, sans-serif");
+            codeText.setAttribute("font-size", "10");
+            codeText.setAttribute("font-weight", "bold");
+            codeText.setAttribute("fill", "#333");
+            codeText.textContent = text;
+            svg.appendChild(codeText);
+            
+            container.appendChild(svg);
+        }
+
+        function copyToClipboard(text) {
+            // Create temporary textarea
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopyNotification();
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        function showCopyNotification() {
+            const notification = document.getElementById('copy-notification');
+            notification.innerHTML = '<div class="copy-notification">✅ تم نسخ الكود بنجاح!</div>';
+            
+            setTimeout(() => {
+                notification.innerHTML = '';
+            }, 2000);
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                icon.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'light') {
+                body.classList.add('light-mode');
+                icon.textContent = '☀️';
+            } else {
+                icon.textContent = '🌙';
+            }
+        }
+
         function showModal(company) {
+            const barcodeId = 'barcode-' + Date.now();
             const modalHtml = `
                 <div class="modal-overlay" onclick="closeModal(event)">
                     <div class="modal-content scrollbar-custom" onclick="event.stopPropagation()">
                         <!-- Header -->
-                        <div class="p-8 text-center border-b border-gray-700">
+                        <div class="p-8 text-center border-b border-styled">
                             <div class="modal-logo">
                                 ${company.logo}
                             </div>
-                            <h2 class="text-3xl font-bold text-white mb-2">${company.name}</h2>
-                            <span class="inline-block px-4 py-2 bg-blue-500 bg-opacity-20 text-blue-300 rounded-full text-sm font-bold">
+                            <h2 class="text-3xl font-bold text-styled mb-2">${company.name}</h2>
+                            <span class="inline-block px-4 py-2 bg-blue-500 bg-opacity-20 text-blue-500 rounded-full text-sm font-bold">
                                 ${company.category}
                             </span>
                         </div>
 
                         <!-- Discount Section -->
                         <div class="p-8 text-center bg-gradient-to-b from-transparent to-blue-500 to-opacity-5">
-                            <p class="text-gray-400 mb-3 text-sm">نسبة الخصم</p>
-                            <div class="modal-discount text-white">
+                            <p class="text-secondary-styled mb-3 text-sm">نسبة الخصم</p>
+                            <div class="modal-discount">
                                 ${company.discount}
+                            </div>
+                        </div>
+
+                        <!-- Barcode Section -->
+                        <div class="p-8 text-center border-b border-styled">
+                            <p class="text-secondary-styled mb-4 text-sm">امسح الباركود للحصول على الخصم</p>
+                            <div class="barcode-container mx-auto">
+                                <div id="${barcodeId}" class="barcode-wrapper"></div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-secondary-styled text-xs mb-2">أو استخدم الكود</p>
+                                <div class="discount-code-box inline-block" onclick="copyToClipboard('${company.discountCode}')" title="اضغط للنسخ">
+                                    <span class="text-styled font-bold text-lg">${company.discountCode}</span>
+                                </div>
                             </div>
                         </div>
 
@@ -454,25 +852,25 @@
                             <div class="detail-row">
                                 <div class="flex items-center gap-3 mb-2">
                                     <span class="text-2xl">📅</span>
-                                    <span class="text-gray-400 text-sm">صالح حتى</span>
+                                    <span class="text-secondary-styled text-sm">صالح حتى</span>
                                 </div>
-                                <p class="text-white font-bold text-lg mr-11">${company.validUntil}</p>
+                                <p class="text-styled font-bold text-lg mr-11">${company.validUntil}</p>
                             </div>
 
                             <div class="detail-row">
                                 <div class="flex items-center gap-3 mb-2">
                                     <span class="text-2xl">ℹ️</span>
-                                    <span class="text-gray-400 text-sm">تفاصيل العرض</span>
+                                    <span class="text-secondary-styled text-sm">تفاصيل العرض</span>
                                 </div>
-                                <p class="text-white leading-relaxed mr-11">${company.description}</p>
+                                <p class="text-styled leading-relaxed mr-11">${company.description}</p>
                             </div>
 
                             <div class="detail-row">
                                 <div class="flex items-center gap-3 mb-2">
                                     <span class="text-2xl">🎯</span>
-                                    <span class="text-gray-400 text-sm">كيفية الاستفادة</span>
+                                    <span class="text-secondary-styled text-sm">��يفية الاستفادة</span>
                                 </div>
-                                <p class="text-white leading-relaxed mr-11">اضغط على زيارة الموقع وأدخل كود الخصم عند إتمام الشراء</p>
+                                <p class="text-styled leading-relaxed mr-11">امسح الـ QR Code عند الكاشير أو أدخل كود الخصم عند الشراء أونلاين</p>
                             </div>
                         </div>
 
@@ -490,6 +888,11 @@
             `;
             
             document.getElementById('modal-container').innerHTML = modalHtml;
+            
+            // Generate barcode after modal is in DOM
+            setTimeout(() => {
+                generateBarcode(company.discountCode, barcodeId);
+            }, 100);
         }
 
         function closeModal(event) {
@@ -531,8 +934,8 @@
                             ${company.discount}
                         </span>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">${company.name}</h3>
-                    <span class="inline-block px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-300 rounded-full text-sm">
+                    <h3 class="text-2xl font-bold text-styled mb-2">${company.name}</h3>
+                    <span class="inline-block px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-500 rounded-full text-sm">
                         ${company.category}
                     </span>
                 </div>
@@ -584,8 +987,8 @@
                 <div class="suggestion-item p-4 cursor-pointer flex items-center gap-4" onclick="selectSuggestion('${company.name}')">
                     <div class="text-3xl">${company.logo}</div>
                     <div class="flex-1">
-                        <div class="text-white font-bold">${company.name}</div>
-                        <div class="text-sm text-gray-400">${company.category}</div>
+                        <div class="text-styled font-bold">${company.name}</div>
+                        <div class="text-sm text-secondary-styled">${company.category}</div>
                     </div>
                     <div class="text-blue-400 font-bold">${company.discount}</div>
                 </div>
@@ -646,8 +1049,10 @@
             });
         }
 
+        // Initialize theme and render content
+        loadTheme();
         renderCategories();
         renderCards(companies);
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9be39f8e52a55364',t:'MTc2ODQ2MTc1OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9be4c82ae22c5364',t:'MTc2ODQ3MzkwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
