@@ -209,6 +209,117 @@
             50% { filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.6)); }
         }
 
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: rgba(26, 31, 58, 0.95);
+            backdrop-filter: blur(30px);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 24px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(59, 130, 246, 0.4);
+            animation: modalSlideIn 0.4s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(50px) scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-logo {
+            width: 120px;
+            height: 120px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin: 0 auto 20px;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .modal-discount {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            font-size: 3rem;
+            font-weight: 900;
+            padding: 20px 40px;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.5);
+            animation: pulse-glow 2s infinite;
+        }
+
+        .detail-row {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .detail-row:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .close-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: scale(1.05);
+        }
+
+        .visit-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            transition: all 0.3s ease;
+        }
+
+        .visit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2rem;
@@ -216,6 +327,15 @@
             .discount-badge {
                 font-size: 1.2rem;
                 padding: 8px 16px;
+            }
+            .modal-discount {
+                font-size: 2rem;
+                padding: 15px 30px;
+            }
+            .modal-logo {
+                width: 100px;
+                height: 100px;
+                font-size: 3rem;
             }
         }
 
@@ -236,10 +356,6 @@
         .no-results {
             opacity: 0;
             animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
         }
     </style>
   <style>@view-transition { navigation: auto; }</style>
@@ -279,35 +395,108 @@
     </div>
    </section><!-- Footer -->
    <footer class="text-center py-8 px-6 border-t border-gray-800">
-    <p id="footer-text" class="text-gray-400">© 2026 بوابة مزايا الموظفين. جميع الحقوق محفوظة.</p>
+    <p id="footer-text" class="text-gray-400">© 2024 بوابة مزايا الموظفين. جميع الحقوق محفوظة.</p>
    </footer>
-  </div>
+  </div><!-- Modal Container -->
+  <div id="modal-container"></div>
   <script>
         const defaultConfig = {
             hero_title: "خصومات حصرية لموظفينا",
             hero_subtitle: "استمتع بعروض وخصومات حصرية من أفضل الشركات والعلامات التجارية",
             search_placeholder: "ابحث عن شركة أو تصنيف...",
-            footer_text: "© 2026 بوابة مزايا الموظفين. جميع الحقوق محفوظة."
+            footer_text: "© 2024 بوابة مزايا الموظفين. جميع الحقوق محفوظة."
         };
 
         const companies = [
-            { name: "أمازون", logo: "📦", discount: "15%", category: "تكنولوجيا", url: "https://amazon.com" },
-            { name: "أبل", logo: "🍎", discount: "10%", category: "تكنولوجيا", url: "https://apple.com" },
-            { name: "مايكروسوفت", logo: "💻", discount: "20%", category: "تكنولوجيا", url: "https://microsoft.com" },
-            { name: "فايزر", logo: "💊", discount: "25%", category: "أدوية", url: "https://pfizer.com" },
-            { name: "نوفارتس", logo: "🏥", discount: "18%", category: "أدوية", url: "https://novartis.com" },
-            { name: "نستله", logo: "🍫", discount: "12%", category: "أغذية", url: "https://nestle.com" },
-            { name: "كوكاكولا", logo: "🥤", discount: "15%", category: "أغذية", url: "https://coca-cola.com" },
-            { name: "زارا", logo: "👔", discount: "30%", category: "ملابس", url: "https://zara.com" },
-            { name: "نايكي", logo: "👟", discount: "25%", category: "ملابس", url: "https://nike.com" },
-            { name: "ماكدونالدز", logo: "🍔", discount: "20%", category: "مطاعم", url: "https://mcdonalds.com" },
-            { name: "ستاربكس", logo: "☕", discount: "15%", category: "مطاعم", url: "https://starbucks.com" },
-            { name: "أوبر", logo: "🚗", discount: "10%", category: "خدمات", url: "https://uber.com" }
+            { name: "أمازون", logo: "📦", discount: "15%", category: "تكنولوجيا", url: "https://amazon.com", validUntil: "31 ديسمبر 2024", description: "خصم حصري على جميع المنتجات الإلكترونية والكتب" },
+            { name: "أبل", logo: "🍎", discount: "10%", category: "تكنولوجيا", url: "https://apple.com", validUntil: "30 يونيو 2025", description: "خصم على أجهزة iPhone, iPad, MacBook وإكسسوارات" },
+            { name: "مايكروسوفت", logo: "💻", discount: "20%", category: "تكنولوجيا", url: "https://microsoft.com", validUntil: "31 مارس 2025", description: "خصم على اشتراكات Office 365 والخدمات السحابية" },
+            { name: "فايزر", logo: "💊", discount: "25%", category: "أدوية", url: "https://pfizer.com", validUntil: "31 يناير 2025", description: "خصم على المكملات الغذائية والأدوية المعتمدة" },
+            { name: "نوفارتس", logo: "🏥", discount: "18%", category: "أدوية", url: "https://novartis.com", validUntil: "28 فبراير 2025", description: "خصم على منتجات العناية الصحية والأدوية" },
+            { name: "نستله", logo: "🍫", discount: "12%", category: "أغذية", url: "https://nestle.com", validUntil: "31 ديسمبر 2024", description: "خصم على جميع منتجات نستله الغذائية والمشروبات" },
+            { name: "كوكاكولا", logo: "🥤", discount: "15%", category: "أغذية", url: "https://coca-cola.com", validUntil: "30 أبريل 2025", description: "خصم على المشروبات الغازية والعصائر الطبيعية" },
+            { name: "زارا", logo: "👔", discount: "30%", category: "ملابس", url: "https://zara.com", validUntil: "31 يناير 2025", description: "خصم على الملابس الرجالية والنسائية - مجموعة الشتاء" },
+            { name: "نايكي", logo: "👟", discount: "25%", category: "ملابس", url: "https://nike.com", validUntil: "31 مارس 2025", description: "خصم على الأحذية والملابس الرياضية والإكسسوارات" },
+            { name: "ماكدونالدز", logo: "🍔", discount: "20%", category: "مطاعم", url: "https://mcdonalds.com", validUntil: "31 ديسمبر 2024", description: "خصم على جميع الوجبات - صالح في جميع الفروع" },
+            { name: "ستاربكس", logo: "☕", discount: "15%", category: "مطاعم", url: "https://starbucks.com", validUntil: "30 يونيو 2025", description: "خصم على المشروبات الساخنة والباردة والحلويات" },
+            { name: "أوبر", logo: "🚗", discount: "10%", category: "خدمات", url: "https://uber.com", validUntil: "31 مايو 2025", description: "خصم على رحلات أوبر - 10 رحلات شهرياً" }
         ];
 
         const categories = ["الكل", "تكنولوجيا", "أدوية", "أغذية", "ملابس", "مطاعم", "خدمات"];
         let activeCategory = "الكل";
         let searchQuery = "";
+
+        function showModal(company) {
+            const modalHtml = `
+                <div class="modal-overlay" onclick="closeModal(event)">
+                    <div class="modal-content scrollbar-custom" onclick="event.stopPropagation()">
+                        <!-- Header -->
+                        <div class="p-8 text-center border-b border-gray-700">
+                            <div class="modal-logo">
+                                ${company.logo}
+                            </div>
+                            <h2 class="text-3xl font-bold text-white mb-2">${company.name}</h2>
+                            <span class="inline-block px-4 py-2 bg-blue-500 bg-opacity-20 text-blue-300 rounded-full text-sm font-bold">
+                                ${company.category}
+                            </span>
+                        </div>
+
+                        <!-- Discount Section -->
+                        <div class="p-8 text-center bg-gradient-to-b from-transparent to-blue-500 to-opacity-5">
+                            <p class="text-gray-400 mb-3 text-sm">نسبة الخصم</p>
+                            <div class="modal-discount text-white">
+                                ${company.discount}
+                            </div>
+                        </div>
+
+                        <!-- Details Section -->
+                        <div class="p-8 space-y-4">
+                            <div class="detail-row">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="text-2xl">📅</span>
+                                    <span class="text-gray-400 text-sm">صالح حتى</span>
+                                </div>
+                                <p class="text-white font-bold text-lg mr-11">${company.validUntil}</p>
+                            </div>
+
+                            <div class="detail-row">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="text-2xl">ℹ️</span>
+                                    <span class="text-gray-400 text-sm">تفاصيل العرض</span>
+                                </div>
+                                <p class="text-white leading-relaxed mr-11">${company.description}</p>
+                            </div>
+
+                            <div class="detail-row">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="text-2xl">🎯</span>
+                                    <span class="text-gray-400 text-sm">كيفية الاستفادة</span>
+                                </div>
+                                <p class="text-white leading-relaxed mr-11">اضغط على زيارة الموقع وأدخل كود الخصم عند إتمام الشراء</p>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="p-8 pt-0 flex gap-4">
+                            <button onclick="closeModal()" class="close-btn flex-1 px-6 py-4 rounded-xl font-bold text-lg">
+                                إغلاق
+                            </button>
+                            <a href="${company.url}" target="_blank" rel="noopener noreferrer" class="visit-btn flex-1 px-6 py-4 rounded-xl font-bold text-lg text-white text-center">
+                                زيارة الموقع 🚀
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modal-container').innerHTML = modalHtml;
+        }
+
+        function closeModal(event) {
+            if (!event || event.target.classList.contains('modal-overlay')) {
+                document.getElementById('modal-container').innerHTML = '';
+            }
+        }
 
         function renderCategories() {
             const container = document.getElementById('categories-container');
@@ -333,7 +522,7 @@
             
             noResults.classList.add('hidden');
             grid.innerHTML = filteredCompanies.map((company, index) => `
-                <a href="${company.url}" target="_blank" rel="noopener noreferrer" class="glass-card p-6 cursor-pointer card-enter" style="animation-delay: ${index * 0.1}s">
+                <div class="glass-card p-6 cursor-pointer card-enter" style="animation-delay: ${index * 0.1}s" onclick='showModal(${JSON.stringify(company).replace(/'/g, "&apos;")})'>
                     <div class="flex items-start justify-between mb-4">
                         <div class="logo-container">
                             ${company.logo}
@@ -346,7 +535,7 @@
                     <span class="inline-block px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-300 rounded-full text-sm">
                         ${company.category}
                     </span>
-                </a>
+                </div>
             `).join('');
         }
 
@@ -425,6 +614,12 @@
             }
         });
 
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
         async function onConfigChange(config) {
             document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
             document.getElementById('hero-subtitle').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
@@ -454,5 +649,5 @@
         renderCategories();
         renderCards(companies);
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9be37c4bf3b85364',t:'MTc2ODQ2MDMxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9be39f8e52a55364',t:'MTc2ODQ2MTc1OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
