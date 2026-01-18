@@ -392,3 +392,21 @@ body.light-mode .scrollbar-custom::-webkit-scrollbar-track { background: rgba(59
     body[dir="rtl"] .color-themes-dropdown { left: 20px; }
     body[dir="ltr"] .color-themes-dropdown { right: 20px; }
 }
+/* =========================================
+   تعطيل الأزرار عند فتح المودال
+   ========================================= */
+
+/* عندما يحمل الجسم كلاس "modal-open" */
+body.modal-open .theme-toggle,
+body.modal-open .color-theme-selector {
+    pointer-events: none;  /* منع النقر تماماً */
+    opacity: 0.2;          /* جعلها باهتة جداً */
+    filter: grayscale(100%); /* تحويلها للأبيض والأسود */
+    transition: all 0.3s ease;
+    z-index: 0; /* إرجاعها للخلف لتكون تحت المودال */
+}
+
+/* التأكد من أن المودال دائماً في الطبقة الأعلى */
+.modal-overlay {
+    z-index: 99999 !important; /* رقم عالي جداً */
+}
